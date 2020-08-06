@@ -11,9 +11,9 @@ api = Api(app)
 
 # Routes
 api.add_resource(DisciplineList, "/api/disciplines")                # Returns all disciplines
-api.add_resource(Discipline, "/api/disciplines/<string:name>")      # Returns discipline
+api.add_resource(Discipline, "/api/discipline/<string:name>")       # Returns discipline
 api.add_resource(TrickList, "/api/tricks/<string:discipline>")      # Returns all tricks of 1 discipline
-api.add_resource(Trick, "/api/trick/<int:id>")                   # Returns trick
+api.add_resource(Trick, "/api/trick/<int:id>")                      # Returns trick
 
 if __name__ == '__main__':
     # TODO - DELETE DEBUG
