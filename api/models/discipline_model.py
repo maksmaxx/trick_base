@@ -2,7 +2,7 @@ import json
 
 
 class DisciplineModel:
-    def __init__(self, name, area, image):
+    def __init__(self, name: str, area: str, image: str):
         self.name = name
         self.area = area
         self.image = image
