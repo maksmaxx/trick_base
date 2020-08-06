@@ -70,6 +70,8 @@ instance/
 
 #
 .idea
+api/protected/
+
 
 # Sphinx documentation
 docs/_build/
