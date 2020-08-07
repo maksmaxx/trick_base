@@ -8,5 +8,11 @@ class DisciplineModel:
         self.image = image
 
     def to_json(self):
-        return json.dumps(self, default=lambda o: o.__dict__,
-                          sort_keys=True, indent=4)
+        return {
+            "name": self.name,
+            "area": self.area,
+            "image": self.image
+        }
+
+        # return json.dumps(self, default=lambda o: o.__dict__,
+        #                 sort_keys=True, indent=4)
