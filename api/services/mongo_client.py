@@ -1,6 +1,7 @@
 import pymongo
 import pymongo.results
 from models.discipline_model import DisciplineModel
+from models.discipline_list_model import DisciplineListModel
 import protected.const as protected  # Paths to DB, passwords, not included in git
 
 
@@ -19,6 +20,24 @@ class MongoClient:
         except Exception as e:
             print(e)
             return False
+
+    def find_all_disciplines(self):
+        # Searches for all disciplines in collection
+        # Returns DisciplineList
+        collection = pymongo.collection.Collection(self.database, 'disciplines')
+        cursor = collection.find({})
+
+        list = []
+        for document in cursor:
+            list.append(
+                DisciplineModel(
+                    name=document["name"],
+                    area=document["area"],
+                    image=document["image"]
+                )
+            )
+
+        return DisciplineListModel(disciplines=list)
 
     def find_discipline_with_name(self, name: str):
         # Searches for discipline with provided name
