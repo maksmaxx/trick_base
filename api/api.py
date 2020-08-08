@@ -29,7 +29,7 @@ PUT     /api/trick/{id} : Update or create the trick identified by "id"
 
 api.add_resource(DisciplineList, "/api/disciplines")
 api.add_resource(Discipline, "/api/discipline/<string:name>")
-api.add_resource(TrickList, "/api/tricks/<string:discipline>")
+api.add_resource(TrickList, "/api/tricks", "/api/tricks/<string:discipline>")
 api.add_resource(Trick, "/api/trick/<int:id>")
 
 if __name__ == '__main__':

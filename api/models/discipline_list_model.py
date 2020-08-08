@@ -1,8 +1,9 @@
 import json
+from models.discipline_model import DisciplineModel
 
 
 class DisciplineListModel:
-    def __init__(self, disciplines: []):
+    def __init__(self, disciplines: [DisciplineModel]):
         self.disciplines = disciplines
 
     def to_json(self):
