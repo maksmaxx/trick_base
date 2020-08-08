@@ -1,6 +1,3 @@
-import json
-
-
 class DisciplineModel:
     def __init__(self, name: str, area: str, image: str):
         self.name = name
