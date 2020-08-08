@@ -10,19 +10,27 @@ app = Flask(__name__)
 api = Api(app)
 
 """"
-GET 	/device-management/devices : Get all devices
-POST 	/device-management/devices : Create a new device
+Api routes
 
-GET 	/device-management/devices/{id} : Get the device information identified by "id"
-PUT 	/device-management/devices/{id} : Update the device information identified by "id"
-DELETE	/device-management/devices/{id} : Delete device by "id"
+GET 	/api/disciplines : Get all disciplines
+POST 	/api/disciplines : Create a new discipline
+
+GET 	/api/discipline/{name} : Get the discipline information identified by "name"
+PUT 	/api/discipline/{name} : Update or create the discipline information identified by "name"
+DELETE	/api/discipline/{name} : Delete the discipline identified by "name"
+
+GET     /api/tricks/{discipline_name} : Get all tricks belonging to discipline identified by "discipline_name"
+POST    /api/tricks : Create a new trick
+
+GET     /api/trick/{id} : Get the trick identified by "id"
+PUT     /api/trick/{id} : Update or create the trick identified by "id"
+
 """
 
-# Routes
-api.add_resource(DisciplineList, "/api/disciplines")                # Returns all disciplines
-api.add_resource(Discipline, "/api/discipline/<string:name>")       # Returns discipline
-api.add_resource(TrickList, "/api/tricks/<string:discipline>")      # Returns all tricks of 1 discipline
-api.add_resource(Trick, "/api/trick/<int:id>")                      # Returns trick
+api.add_resource(DisciplineList, "/api/disciplines")
+api.add_resource(Discipline, "/api/discipline/<string:name>")
+api.add_resource(TrickList, "/api/tricks/<string:discipline>")
+api.add_resource(Trick, "/api/trick/<int:id>")
 
 if __name__ == '__main__':
     # TODO - DELETE DEBUG
