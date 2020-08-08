@@ -7,16 +7,14 @@ class TrickModel:
         name - trick's name
         discipline - name's of discipline trick belongs to
         category - trick's category i.e. 'aerial', 'jump', 'wave' ...
-        tutorials - array of videos' URL containing trick's tutorials
-        videos - array of videos' URL containing trick's video showdown
+        videos - array of videos' URL containing trick's video showdown or tutorials
     """
 
-    def __init__(self, uid: str, name: str, discipline: str, category: str, tutorials: [str], videos: [str]):
-        self.uid = uid
+    def __init__(self, uuid: str, name: str, discipline: str, category: str, videos: [str]):
+        self.uuid = uuid
         self.name = name
         self.discipline = discipline
         self.category = category
-        self.tutorials = tutorials
         self.videos = videos
 
     def to_json(self):

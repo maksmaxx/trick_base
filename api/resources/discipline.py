@@ -1,14 +1,31 @@
 from flask_restful import Resource, reqparse
+
 from services.mongo_client import MongoClient
 from models.discipline_model import DisciplineModel
 
 
 class Discipline(Resource):
+    """
+    Discipline provides endpoints:
+    GET 	/api/discipline/{name} : Get the discipline identified by "name"
+    PUT 	/api/discipline/{name} : Update the discipline identified by "name"
+    DELETE	/api/discipline/{name} : Delete the discipline identified by "name"(and all associated tricks)
+    """
+
     def get(self, name):
-        # Connect to DB
+        """
+        GET 	/api/discipline/{name} : Get the discipline identified by "name"
+
+        GET Json structure:
+        {
+            "name": "<name>",
+            "area": "<area>",
+            "image": "<image_path>"
+        }
+        """
+
         client = MongoClient()
         if client.connect():
-            # Find discipline with name
             discipline = client.find_discipline_with_name(name)
             if discipline is not None:
                 return discipline.to_json(), 200
@@ -19,10 +36,19 @@ class Discipline(Resource):
             return "Service temporary unavailable", 503
 
     def put(self, name):
-        # Process JSON income
+        """
+        PUT 	/api/discipline/{name} : Update the discipline identified by "name"
+
+        PUT Json structure:
+        {
+            "key": "<authorization_key>",
+            "area": "<area>",
+            "image": "<image_path>"
+        }
+        """
+
         incoming = self.__process_arguments(name)
         if incoming is not None:
-            # Connect to DB
             client = MongoClient()
             if client.connect():
                 # Check if discipline already exists
@@ -31,18 +57,12 @@ class Discipline(Resource):
                     result = client.update_discipline(incoming)
                     if result is not None:
                         return result.to_json(), 200
-                    # Update error
                     else:
                         return "Update error", 400
 
-                # Not exists, create new discipline
+                # Not exists, abort
                 else:
-                    result = client.create_discipline(incoming)
-                    if result is not None:
-                        return result.to_json(), 201
-                    # Creation error
-                    else:
-                        return "Already exists", 400
+                    return "Can't update. Discipline not exists.", 400
 
             # Connection to DB error
             else:
@@ -68,6 +88,7 @@ class Discipline(Resource):
         # Returns None if error, DisciplineModel if success
         try:
             parser = reqparse.RequestParser()
+            parser.add_argument("key")
             parser.add_argument("area")
             parser.add_argument("image")
             params = parser.parse_args()

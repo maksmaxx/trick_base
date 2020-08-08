@@ -3,6 +3,9 @@ from models.discipline_model import DisciplineModel
 
 
 class DisciplineListModel:
+    """"
+        disciplines - Array with DisciplineModel objects
+    """
     def __init__(self, disciplines: [DisciplineModel]):
         self.disciplines = disciplines
 
