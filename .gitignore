@@ -70,7 +70,7 @@ instance/
 
 #
 .idea
-api/protected/
+server_app/protected/
 
 
 # Sphinx documentation
