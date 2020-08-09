@@ -175,7 +175,7 @@ class MongoClient:
         Update trick in DB
         Returns updated trick or None if failed
         """
-        collection = pymongo.collection.Collection(self.database, 'trick')
+        collection = pymongo.collection.Collection(self.database, 'tricks')
 
         try:
             collection.find_one_and_replace({"uuid": trick.uuid}, trick.to_json())
@@ -184,14 +184,14 @@ class MongoClient:
             print(e)
             return None
 
-    def delete_trick(self, trick: TrickModel):
+    def delete_trick(self, uuid: str):
         """
         Delete trick in DB
         Returns True or False
         """
 
         collection = pymongo.collection.Collection(self.database, 'tricks')
-        result = collection.delete_one({"uuid": trick.uuid})
+        result = collection.delete_one({"uuid": uuid})
 
         if result.deleted_count > 0:
             return True

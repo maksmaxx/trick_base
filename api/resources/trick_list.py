@@ -4,6 +4,7 @@ from flask_restful import Resource, reqparse
 from services.mongo_client import MongoClient
 from models.trick_model import TrickModel
 from models.trick_list_model import TrickListModel
+import protected.const as protected
 
 
 class TrickList(Resource):
@@ -72,7 +73,7 @@ class TrickList(Resource):
 
         # Process JSON income
         incoming = self.__process_arguments(discipline)
-        if incoming is not None:
+        if isinstance(incoming, TrickModel):
             client = MongoClient()
             if client.connect():
                 # Check if provided discipline exists
@@ -88,6 +89,9 @@ class TrickList(Resource):
             # Connection to MongoDB error
             else:
                 return "Service temporary unavailable", 503
+
+        elif incoming == "unauthorized":
+            return "Unauthorized.", 401
         # Incorrect incoming JSON parameters
         else:
             return "Invalid discipline parameters or authorization key.", 400
@@ -109,6 +113,10 @@ class TrickList(Resource):
             # Parameters must not be null
             if params["name"] is None or params["category"] is None or params["videos"] is None:
                 raise
+
+            # Check if user is authorized to PUT/POST/DELETE
+            if params["key"] != protected.AUTHKEY:
+                return "unauthorized"
 
             return TrickModel(
                 uuid=str(uuid.uuid1()),  # Generate UUID for trick

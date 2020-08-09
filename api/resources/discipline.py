@@ -2,6 +2,7 @@ from flask_restful import Resource, reqparse
 
 from services.mongo_client import MongoClient
 from models.discipline_model import DisciplineModel
+import protected.const as protected  # Paths to DB, passwords, not included in git
 
 
 class Discipline(Resource):
@@ -48,7 +49,7 @@ class Discipline(Resource):
         """
 
         incoming = self.__process_arguments(name)
-        if incoming is not None:
+        if isinstance(incoming, DisciplineModel):
             client = MongoClient()
             if client.connect():
                 # Check if discipline already exists
@@ -67,12 +68,33 @@ class Discipline(Resource):
             # Connection to DB error
             else:
                 return "Service temporary unavailable", 503
+        elif incoming == "unauthorized":
+            return "Unauthorized", 401
         # Incorrect incoming JSON parameters
         else:
             return "Invalid discipline parameters", 400
 
     def delete(self, name):
-        # Connect to DB
+        """
+        DELETE	/api/discipline/{name} : Delete the discipline identified by "name"(and all associated tricks)
+
+        DELETE Json structure
+        {
+            "key": "key"
+        }
+        """
+
+        # Check if user is authorized to PUT/POST/DELETE
+        try:
+            parser = reqparse.RequestParser()
+            parser.add_argument("key")
+            params = parser.parse_args()
+
+            if params["key"] != protected.AUTHKEY:
+                return "Unauthorized", 401
+        except Exception as e:
+            print(e)
+
         client = MongoClient()
         if client.connect():
             if client.delete_discipline(name):
@@ -96,6 +118,10 @@ class Discipline(Resource):
             # Parameters must not be null
             if params["image"] is None or params["area"] is None or name is None:
                 raise
+
+            # Check if user is authorized to PUT/POST/DELETE
+            if params["key"] != protected.AUTHKEY:
+                return "unauthorized"
 
             return DisciplineModel(
                 image=params["image"],

@@ -3,6 +3,7 @@ from flask_restful import Resource, reqparse
 from services.mongo_client import MongoClient
 from models.discipline_list_model import DisciplineListModel
 from models.discipline_model import DisciplineModel
+import protected.const as protected
 
 
 class DisciplineList(Resource):
@@ -53,7 +54,7 @@ class DisciplineList(Resource):
         """
 
         incoming = self.__process_arguments()
-        if incoming is not None:
+        if isinstance(incoming, DisciplineModel):
             client = MongoClient()
             if client.connect():
                 # Create new discipline
@@ -63,10 +64,14 @@ class DisciplineList(Resource):
                 else:
                     return "Already exists", 400
 
+            elif incoming == "unauthorized":
+                return "Unauthorized.", 401
             # Connection to DB error
             else:
                 return "Service temporary unavailable", 503
-        # Incorrect incoming JSON parameters
+
+        elif incoming == "unauthorized":
+            return "Unauthorized", 401
         else:
             return "Invalid discipline parameters", 400
 
@@ -87,6 +92,10 @@ class DisciplineList(Resource):
             # Parameters must not be null
             if params["image"] is None or params["area"] is None or params["name"] is None:
                 raise
+
+            # Check if user is authorized to PUT/POST/DELETE
+            if params["key"] != protected.AUTHKEY:
+                return "unauthorized"
 
             return DisciplineModel(
                 image=params["image"],
