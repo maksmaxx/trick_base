@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_restful import Api
 
 from resources.discipline import Discipline
@@ -31,6 +31,12 @@ api.add_resource(DisciplineList, "/api/disciplines")
 api.add_resource(Discipline, "/api/discipline/<string:name>")
 api.add_resource(TrickList, "/api/tricks/<string:discipline>")
 api.add_resource(Trick, "/api/trick/<string:uuid>")
+
+
+@app.route("/")
+def main():
+    return "Hello Trick Base", 200
+
 
 if __name__ == '__main__':
     # TODO - DELETE DEBUG
