@@ -1,0 +1,13 @@
+# This git(API folder) contains repo uploaded directly to the heroku server.
+*.pyc
+__pycache__/
+
+.idea/
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
