@@ -1,5 +1,0 @@
-flask
-flask-restful
-dnspython
-pymongo
-gunicorn
