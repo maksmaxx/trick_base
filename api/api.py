@@ -34,4 +34,4 @@ api.add_resource(Trick, "/api/trick/<string:uuid>")
 
 if __name__ == '__main__':
     # TODO - DELETE DEBUG
-    app.run(debug=True)
+    app.run(debug=False)
