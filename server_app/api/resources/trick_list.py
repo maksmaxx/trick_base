@@ -2,8 +2,8 @@ import uuid
 from flask_restful import Resource, reqparse
 
 from services.mongo_client import MongoClient
-from models.trick_model import TrickModel
-from models.trick_list_model import TrickListModel
+from api.models.trick_model import TrickModel
+from api.models.trick_list_model import TrickListModel
 import protected.const as protected
 
 

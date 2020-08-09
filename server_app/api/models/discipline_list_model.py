@@ -1,5 +1,5 @@
 import json
-from models.discipline_model import DisciplineModel
+from api.models.discipline_model import DisciplineModel
 
 
 class DisciplineListModel:

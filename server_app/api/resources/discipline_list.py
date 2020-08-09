@@ -1,8 +1,8 @@
 from flask_restful import Resource, reqparse
 
 from services.mongo_client import MongoClient
-from models.discipline_list_model import DisciplineListModel
-from models.discipline_model import DisciplineModel
+from api.models.discipline_list_model import DisciplineListModel
+from api.models.discipline_model import DisciplineModel
 import protected.const as protected
 
 

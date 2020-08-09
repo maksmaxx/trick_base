@@ -1,5 +1,5 @@
 import json
-from models.trick_model import TrickModel
+from api.models.trick_model import TrickModel
 
 
 class TrickListModel:

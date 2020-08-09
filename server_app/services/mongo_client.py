@@ -1,9 +1,9 @@
 import pymongo
 import pymongo.results
-from models.discipline_model import DisciplineModel
-from models.discipline_list_model import DisciplineListModel
-from models.trick_model import TrickModel
-from models.trick_list_model import TrickListModel
+from api.models.discipline_model import DisciplineModel
+from api.models.discipline_list_model import DisciplineListModel
+from api.models.trick_model import TrickModel
+from api.models.trick_list_model import TrickListModel
 import protected.const as protected  # Paths to DB, passwords, not included in git
 
 

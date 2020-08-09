@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 
 from services.mongo_client import MongoClient
-from models.trick_model import TrickModel
+from api.models.trick_model import TrickModel
 import protected.const as protected  # Paths to DB, passwords, not included in git
 
 

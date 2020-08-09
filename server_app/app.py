@@ -1,10 +1,10 @@
 from flask import Flask, render_template
 from flask_restful import Api
 
-from resources.discipline import Discipline
-from resources.discipline_list import DisciplineList
-from resources.trick import Trick
-from resources.trick_list import TrickList
+from api.resources.discipline import Discipline
+from api.resources.discipline_list import DisciplineList
+from api.resources.trick import Trick
+from api.resources.trick_list import TrickList
 
 app = Flask(__name__)
 api = Api(app)
