@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_restful import Api
 
 from api.resources.discipline import Discipline
@@ -6,7 +6,8 @@ from api.resources.discipline_list import DisciplineList
 from api.resources.trick import Trick
 from api.resources.trick_list import TrickList
 
-app = Flask(__name__)
+
+app = Flask(__name__, template_folder='html')
 api = Api(app)
 
 """
@@ -25,12 +26,9 @@ api.add_resource(TrickList, "/api/tricks")
 api.add_resource(Trick, "/api/tricks/<string:uuid>")
 
 
-"""
-App routes - rendering HTML to be implemented later?
-"""
 @app.route("/")
 def main():
-    return "Hello, it's the Trick Base.", 200
+    return render_template('main.html'), 200
 
 
 if __name__ == '__main__':
