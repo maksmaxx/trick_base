@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask
 from flask_restful import Api
+from flask_cors import CORS
 
 from api.resources.discipline import Discipline
 from api.resources.discipline_list import DisciplineList
@@ -9,6 +10,7 @@ from api.resources.trick_list import TrickList
 
 app = Flask(__name__, static_folder='front-end',  static_url_path='/')
 api = Api(app)
+CORS(app)
 
 """
 Api routes
