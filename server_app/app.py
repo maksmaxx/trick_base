@@ -7,7 +7,7 @@ from api.resources.trick import Trick
 from api.resources.trick_list import TrickList
 
 
-app = Flask(__name__, template_folder='html')
+app = Flask(__name__, static_folder='front-end',  static_url_path='/')
 api = Api(app)
 
 """
@@ -27,8 +27,8 @@ api.add_resource(Trick, "/api/tricks/<string:uuid>")
 
 
 @app.route("/")
-def main():
-    return render_template('main.html'), 200
+def index():
+    return app.send_static_file('index.html')
 
 
 if __name__ == '__main__':
