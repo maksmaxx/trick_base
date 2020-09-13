@@ -43,7 +43,6 @@ class MongoClient:
                 DisciplineModel(
                     name=document["name"],
                     area=document["area"],
-                    image=document["image"]
                 )
             )
 
@@ -64,7 +63,6 @@ class MongoClient:
             return DisciplineModel(
                 name=result["name"],
                 area=result["area"],
-                image=result["image"]
             )
 
     def find_trick_with_uuid(self, uuid: str):

@@ -7,10 +7,9 @@ class DisciplineModel:
         area - i.e. land, water, snow ...
         image - path to valid image to display for clients
     """
-    def __init__(self, name: str, area: str, image: str):
+    def __init__(self, name: str, area: str):
         self.name = name
         self.area = area
-        self.image = image
 
     def to_json(self):
         return json.loads(json.dumps(self, default=lambda o: o.__dict__,

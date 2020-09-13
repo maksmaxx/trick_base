@@ -43,7 +43,6 @@ class MongoClient:
             return DisciplineModel(
                 name=result["name"],
                 area=result["area"],
-                image=result["image"]
             )
 
     def find_trick_with_uuid(self, uuid: str):
@@ -74,7 +73,6 @@ class MongoClient:
                 collection.insert_one(DisciplineModel(
                     name=name,
                     area=area,
-                    image="",
                 ).to_json())
                 return "Discipline created"
             except Exception as e:
