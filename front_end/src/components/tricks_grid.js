@@ -10,7 +10,14 @@ class TricksGrid extends Component  {
 
     generateTricks = () => {
         // Generate grid of existing disciplines basing on activeDiscipline stired in Redux
-        const items = this.props.activeTricks ? this.props.activeTricks.sort().map(item => {
+        const items = this.props.activeTricks ? this.props.activeTricks
+        .sort(function(a, b) {
+            // sorts alphabetically
+            var textA = a.name.toUpperCase();
+            var textB = b.name.toUpperCase();
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        })
+        .map(item => {
             const name = item.name.charAt(0).toUpperCase() + item.name.slice(1);
 
             return (

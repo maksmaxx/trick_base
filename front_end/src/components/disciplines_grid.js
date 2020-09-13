@@ -10,7 +10,14 @@ class DisciplinesGrid extends Component  {
 
     generateDisciplines = () => {
         // Generate grid of existing disciplines basing on activeDiscipline stired in Redux
-        const items = this.props.disciplines.filter(item => item.area === this.props.activeArea).sort().map(item => {
+        const items = this.props.disciplines.filter(item => item.area === this.props.activeArea)
+        .sort(function(a, b) {
+            // sorts alphabetically
+            var textA = a.name.toUpperCase();
+            var textB = b.name.toUpperCase();
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        })
+        .map(item => {
             const name = item.name.charAt(0).toUpperCase() + item.name.slice(1); // Capitalize first letter, ONLY FOR BUTTON LABEL
             return (
                 <div>
