@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import DisciplinePage from './components/discipline_page';
-import HomePage from './components/home_page';
+import DisciplinePage from './components/pages/discipline_page';
+import HomePage from './components/pages/home_page';
 import NavigationBar from './components/navigation_bar';
+import TrickPage from './components/pages/trick_page';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/disciplines/:discipline_name" component={DisciplinePage} />
+          <Route path="/tricks/:trick_id" component={TrickPage} />
         </Switch>
       </div>
     </BrowserRouter>

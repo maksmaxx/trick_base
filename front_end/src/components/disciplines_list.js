@@ -2,22 +2,21 @@ import React, { Component } from "react";
 import { ButtonGroup, Container, Button} from "react-bootstrap";
 import { connect } from "react-redux";
 import DisciplinesGrid from "./disciplines_grid";
-import { setActiveArea } from "../store/actions/actions";
+import { updateActiveArea } from "../store/actions/actions";
 
 class DisciplinesList extends Component {
     handleAreaButton = (area) => {
-        this.props.setActiveArea(area);
+        this.props.updateActiveArea(area);
     }
 
     generateAreaButtons = () => {
         // Get areas from disciplines stored in redux store
         const areas = this.props.disciplines.map(item => {
-            var area = item.area
-            return area
+            return item.area
         }).filter((v, i, a) => a.indexOf(v) === i); // Eliminates duplicate values
 
         if (this.props.activeArea === null) { // Set default area = first item from areas
-            this.props.setActiveArea(areas[0]);
+            this.handleAreaButton(areas[0]);
         }
 
         // Create unique buttons 
@@ -49,7 +48,7 @@ class DisciplinesList extends Component {
 const mapDispatchToProps = (dispatch) => {
     // Pass dispatch method to props
     return {
-        setActiveArea: (area) => { dispatch(setActiveArea(area)) }
+        updateActiveArea: (area) => { dispatch(updateActiveArea(area)) }
     }
 }
 
