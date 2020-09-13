@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { connect } from "react-redux";
 import { updateActiveTrick } from '../../store/actions/actions';
+import { Container, ListGroup, ListGroupItem, Spinner } from 'react-bootstrap';
 
 class TrickPage extends Component {
     getTrick = () => {
@@ -26,21 +27,36 @@ class TrickPage extends Component {
 
 
     render() {
-        const view = this.props.activeTrick ? (
-            <div className="container">
-                <p> {this.props.activeTrick.uuid}</p>
-                <p> {this.props.activeTrick.name}</p>
-                <p> {this.props.activeTrick.discipline}</p>
-                <p> {this.props.activeTrick.category}</p>
-                <p> {this.props.activeTrick.videos}</p>
-            </div>
-        ) : (
-            <div className="container">
-                <p> Loading </p>
-            </div>
-        );
+        if (this.props.activeTrick !== null) {
+
+            const videos = this.props.activeTrick.videos.map(video => { 
+                return <ListGroupItem className="embed-responsive embed-responsive-16by9 trick-video" key={video}>
+                    <iframe className="embed-responsive-item" title={video} src={video} frameBorder="0" allowFullScreen></iframe>
+                </ListGroupItem> 
+            });
+            
+            const discipline = this.props.activeTrick.discipline.charAt(0).toUpperCase() + this.props.activeTrick.discipline.slice(1); // Capitalize first letter, ONLY FOR BUTTON LABEL
+            const trick = this.props.activeTrick.name.charAt(0).toUpperCase() + this.props.activeTrick.name.slice(1);
+            const category = this.props.activeTrick.category.charAt(0).toUpperCase() + this.props.activeTrick.category.slice(1);
+
+            const view = this.props.activeTrick ? (
+                <Container align="center">
+                <h1 className="title"> {discipline + ": " + trick}</h1>
+                <p className="description"> {category}</p>
+                <ListGroup>
+                    { videos }
+                </ListGroup>
+            </Container>
+            ) : null;
         
-        return view;
+            return view;
+        }
+        else {
+            return <Spinner className="center" animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+            </Spinner>
+        }
+        
     }
 }
 

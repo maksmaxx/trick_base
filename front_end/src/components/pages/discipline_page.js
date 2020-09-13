@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import axios from 'axios';
 import { updateActiveTricks } from '../../store/actions/actions';
 import TricksGrid from '../tricks_grid';
+import { Container } from 'react-bootstrap';
 
 class DisciplinePage extends Component {
     getTricks = () => {
@@ -29,12 +30,13 @@ class DisciplinePage extends Component {
     }
 
     render() {
+        const name = this.props.disciplineName.charAt(0).toUpperCase() + this.props.disciplineName.slice(1);
         
         return (
-            <div className="container">
-                { this.props.disciplineName }
+            <Container align="center">
+                <h1 className="title"> {name} </h1>
                 <TricksGrid />
-            </div>
+            </Container>
         )
     }
 }

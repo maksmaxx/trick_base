@@ -4,6 +4,7 @@ import DisciplinePage from './components/pages/discipline_page';
 import HomePage from './components/pages/home_page';
 import NavigationBar from './components/navigation_bar';
 import TrickPage from './components/pages/trick_page';
+import Footer from './components/footer';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/disciplines/:discipline_name" component={DisciplinePage} />
           <Route path="/tricks/:trick_id" component={TrickPage} />
         </Switch>
+        <Footer />
       </div>
     </BrowserRouter>
   );

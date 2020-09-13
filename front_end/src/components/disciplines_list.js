@@ -13,7 +13,7 @@ class DisciplinesList extends Component {
         // Get areas from disciplines stored in redux store
         const areas = this.props.disciplines.map(item => {
             return item.area
-        }).filter((v, i, a) => a.indexOf(v) === i); // Eliminates duplicate values
+        }).filter((v, i, a) => a.indexOf(v) === i).sort(); // Eliminates duplicate values
 
         if (this.props.activeArea === null) { // Set default area = first item from areas
             this.handleAreaButton(areas[0]);
