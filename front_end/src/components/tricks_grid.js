@@ -1,22 +1,26 @@
 import React, { Component } from "react";
 import { Card, Container, Spinner} from "react-bootstrap";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { updateActivePageAndTrick } from "../store/actions/actions";
 
 class TricksGrid extends Component  {
+    handleClick = (trick) => {
+        this.props.updateActivePageAndTrick("TRICK_PAGE", trick);
+    }
+
     generateTricks = () => {
         // Generate grid of existing disciplines basing on activeDiscipline stired in Redux
         const items = this.props.activeTricks ? this.props.activeTricks.sort().map(item => {
             const name = item.name.charAt(0).toUpperCase() + item.name.slice(1);
 
             return (
-                <Link to={"/tricks/" + item.uuid} key={item.name}>
-                    <Card className="card">
+                <div>
+                    <Card className="card"  key={item.name} onClick={() => this.handleClick(item)}>
                         <Container className="card-body align-items-center d-flex justify-content-center">
                             <h4 className="card-title">{name}</h4>
                         </Container>
                     </Card>
-                </Link>
+                </div>
             )
         }) : null;
 
@@ -42,10 +46,15 @@ class TricksGrid extends Component  {
 }
 
 const mapStateToProps = (state) => {
-    // Get state from Redux and pass to component's props
     return {
         activeTricks: state.activeTricks,
     }
 }
 
-export default connect(mapStateToProps)(TricksGrid);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateActivePageAndTrick: (page, trick) => { dispatch(updateActivePageAndTrick(page, trick)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TricksGrid);

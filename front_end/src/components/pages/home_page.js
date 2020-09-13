@@ -7,6 +7,8 @@ import DisciplinesList from "../disciplines_list";
 
 
 class HomePage extends Component {
+    // Displays Home with discipline's grid 
+
     getDisciplines = () => {
         // Get disciplines from DB and dispatch store
         axios.get("https://trickbase.herokuapp.com/api/disciplines").then(
@@ -23,12 +25,14 @@ class HomePage extends Component {
             // always executed
           });
     }
+
     componentDidMount() {
         this.getDisciplines();
     }
+
     render() {
         const view = this.props.disciplines ? (
-            <DisciplinesList />
+            <DisciplinesList />    
         ) : (
             <Spinner className="center" animation="border" role="status">
                 <span className="sr-only">Loading...</span>
@@ -40,14 +44,12 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = (state) => {
-    // Get state from Redux and pass to component's props
     return {
         disciplines: state.disciplines
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    // Pass dispatch method to props
     return {
         updateDisciplines: (disciplines) => { dispatch(updateDisciplines(disciplines)) }
     }

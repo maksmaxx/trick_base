@@ -46,14 +46,12 @@ class DisciplinesList extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    // Pass dispatch method to props
     return {
         updateActiveArea: (area) => { dispatch(updateActiveArea(area)) }
     }
 }
 
 const mapStateToProps = (state) => {
-    // Get state from Redux and pass to component's props
     return {
         activeArea: state.activeArea,
         disciplines: state.disciplines,

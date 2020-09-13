@@ -1,12 +1,18 @@
-import React from "react";
+import React, { Component } from "react";
 import { Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import Logo from '../assets/logo.png'; 
+import { updateActivePage } from "../store/actions/actions";
 
-const NavigationBar = () => {
-    return (
-        <Navbar variant="dark" sticky="top">
-            <Link to="/">
+class NavigationBar extends Component {
+    handleClick = () => {
+        this.props.updateActivePage("HOME_PAGE");
+    }
+
+    render() {
+        return (
+            <Navbar variant="dark" sticky="top">
+            <div className="transparent-button" onClick={this.handleClick}>
                 <Navbar.Brand>
                     <img
                         src={Logo}
@@ -15,16 +21,19 @@ const NavigationBar = () => {
                         className="d-inline-block"
                         alt="Logo"
                     />
-                    <p className="d-inline-block trick">
-                        Trick
-                    </p>
-                    <p className="d-inline-block base">
-                        Base
-                    </p>
+                    <p className="d-inline-block trick">Trick</p>
+                    <p className="d-inline-block base">Base</p>
                 </Navbar.Brand>
-            </Link>
+            </div>
         </Navbar>
     );
+    }
 }
 
-export default NavigationBar;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateActivePage: (page) => { dispatch(updateActivePage(page)) }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(NavigationBar);

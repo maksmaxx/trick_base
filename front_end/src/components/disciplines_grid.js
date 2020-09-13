@@ -1,21 +1,25 @@
 import React, { Component } from "react";
 import { Container, Card } from "react-bootstrap";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import {  updateActivePageAndDiscipline } from "../store/actions/actions";
 
 class DisciplinesGrid extends Component  {
+    handleClick = (discipline) => {
+        this.props.updateActivePageAndDiscipline("DISCIPLINE_PAGE", discipline);
+    }
+
     generateDisciplines = () => {
         // Generate grid of existing disciplines basing on activeDiscipline stired in Redux
         const items = this.props.disciplines.filter(item => item.area === this.props.activeArea).sort().map(item => {
             const name = item.name.charAt(0).toUpperCase() + item.name.slice(1); // Capitalize first letter, ONLY FOR BUTTON LABEL
             return (
-                <Link to={'/disciplines/' + item.name} key={item.name}>
-                    <Card className="card">
+                <div>
+                    <Card className="card" key={item.name} onClick={() => this.handleClick(item)}>
                         <Container className="card-body align-items-center d-flex justify-content-center">
                             <h4 className="card-title">{name}</h4>
                         </Container>
                     </Card>
-                </Link>
+                </div>
             )
         })
 
@@ -33,11 +37,16 @@ class DisciplinesGrid extends Component  {
 }
 
 const mapStateToProps = (state) => {
-    // Get state from Redux and pass to component's props
     return {
         activeArea: state.activeArea,
         disciplines: state.disciplines,
     }
 }
 
-export default connect(mapStateToProps)(DisciplinesGrid);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateActivePageAndDiscipline: (page, discipline) => { dispatch(updateActivePageAndDiscipline(page, discipline)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DisciplinesGrid);

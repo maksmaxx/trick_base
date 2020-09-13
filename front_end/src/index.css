@@ -6,6 +6,15 @@
   background-color: #ffffff;
 }
 
+.transparent-button {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
 .trick {
   /* Word "Trick" at the Navbar styling */
   color: #ffffff;
@@ -41,6 +50,7 @@
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   background-color: #abedd8!important;
+  cursor: pointer;
 }
 
 .card:hover {

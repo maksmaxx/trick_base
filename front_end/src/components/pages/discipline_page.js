@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
-import { connect } from "react-redux";
 import axios from 'axios';
+import { connect } from "react-redux";
+import { Container } from 'react-bootstrap';
 import { updateActiveTricks } from '../../store/actions/actions';
 import TricksGrid from '../tricks_grid';
-import { Container } from 'react-bootstrap';
 
 class DisciplinePage extends Component {
+    // Shows discipline page - name and tricks belonging to discipline
+    
     getTricks = () => {
-        // Always clear tricks in the cache
-        this.props.updateActiveTricks(null); 
+        this.props.updateActiveTricks(null); // Always clear tricks in the cache
 
-        // Get disciplines from DB and dispatch store
         // POST    /api/tricks : Get all tricks belonging to discipline identified by "name"
         axios.post('https://trickbase.herokuapp.com/api/tricks', {
-            discipline: this.props.disciplineName,
+            discipline: this.props.activeDiscipline.name,
          })
          .then( response => {
              // handle Success
@@ -30,7 +30,8 @@ class DisciplinePage extends Component {
     }
 
     render() {
-        const name = this.props.disciplineName.charAt(0).toUpperCase() + this.props.disciplineName.slice(1);
+        // Capitalize first letter of discipline's name
+        const name = this.props.activeDiscipline.name.charAt(0).toUpperCase() + this.props.activeDiscipline.name.slice(1);
         
         return (
             <Container align="center">
@@ -41,16 +42,14 @@ class DisciplinePage extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    let name = ownProps.match.params.discipline_name; // Derives discipline name from URI
+const mapStateToProps = (state) => {
     return {
-        disciplineName: name,
+        activeDiscipline: state.activeDiscipline,
         activeTricks: state.activeTricks
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    // Pass dispatch method to props
     return {
         updateActiveTricks: (tricks) => { dispatch(updateActiveTricks(tricks)) }
     }
