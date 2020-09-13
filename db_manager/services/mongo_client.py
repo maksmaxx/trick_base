@@ -61,7 +61,6 @@ class MongoClient:
                 uuid=result["uuid"],
                 name=result["name"],
                 discipline=result["discipline"],
-                category=result["category"],
                 videos=result["videos"]
             )
 
@@ -81,7 +80,7 @@ class MongoClient:
         else:
             return "Discipline already exists"
 
-    def create_trick(self, name: str, discipline: str, category: str, videos):
+    def create_trick(self, name: str, discipline: str, videos):
         collection = pymongo.collection.Collection(self.database, 'tricks')
         result = self.find_discipline_with_name(discipline)
         if result is not None:
@@ -91,7 +90,6 @@ class MongoClient:
                         uuid=str(uuid.uuid1()),
                         name=name,
                         discipline=discipline,
-                        category=category,
                         videos=videos
                     ).to_json())
                 return "Trick created"

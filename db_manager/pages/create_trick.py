@@ -29,14 +29,6 @@ class CreateTrick(tk.Frame):
 
         tk.Label(self).pack()
 
-        category_label = tk.Label(self, text="Category")
-        category_label.pack()
-
-        category_entry = tk.Entry(self)
-        category_entry.pack()
-
-        tk.Label(self).pack()
-
         video_label = tk.Label(self, text="Video URL")
         video_label.pack()
 
@@ -57,7 +49,6 @@ class CreateTrick(tk.Frame):
                                command=lambda: self.create_trick(
                                    name=name_entry.get(),
                                    discipline=discipline_entry.get(),
-                                   category=category_entry.get(),
                                    videos=video_entry.get('1.0', 'end-1c'),
                                    path=path_entry.get()
                                ))
@@ -67,11 +58,11 @@ class CreateTrick(tk.Frame):
                            command=lambda: controller.show_frame("StartPage"))
         button.pack()
 
-    def create_trick(self, name: str, discipline: str, category: str, videos: str, path: str):
+    def create_trick(self, name: str, discipline: str, videos: str, path: str):
         # Connect to DB
         client = MongoClient(path)
         if client.connect():
-            messagebox.showinfo("Executed", client.create_trick(name, discipline, category, videos.split()))
+            messagebox.showinfo("Executed", client.create_trick(name, discipline, videos.split()))
             return
         else:
             messagebox.showerror("Error", "Could not connect to the DB")

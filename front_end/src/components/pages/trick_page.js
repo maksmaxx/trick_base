@@ -14,12 +14,10 @@ class TrickPage extends Component {
             
             const discipline = this.props.activeTrick.discipline.charAt(0).toUpperCase() + this.props.activeTrick.discipline.slice(1); // Capitalize first letter, ONLY FOR BUTTON LABEL
             const trick = this.props.activeTrick.name.charAt(0).toUpperCase() + this.props.activeTrick.name.slice(1);
-            const category = this.props.activeTrick.category.charAt(0).toUpperCase() + this.props.activeTrick.category.slice(1);
 
             const view = this.props.activeTrick ? (
                 <Container align="center">
                     <h1 className="title"> {discipline + ": " + trick}</h1>
-                    <p className="description"> {category}</p>
                     <ListGroup>
                         { videos }
                     </ListGroup>

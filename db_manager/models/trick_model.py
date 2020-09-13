@@ -10,11 +10,10 @@ class TrickModel:
         videos - array of videos' URL containing trick's video showdown or tutorials
     """
 
-    def __init__(self, uuid: str, name: str, discipline: str, category: str, videos: [str]):
+    def __init__(self, uuid: str, name: str, discipline: str, videos: [str]):
         self.uuid = uuid
         self.name = name
         self.discipline = discipline
-        self.category = category
         self.videos = videos
 
     def to_json(self):

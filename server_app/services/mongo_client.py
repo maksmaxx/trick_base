@@ -81,7 +81,6 @@ class MongoClient:
                 uuid=result["uuid"],
                 name=result["name"],
                 discipline=result["discipline"],
-                category=result["category"],
                 videos=result["videos"]
             )
 
@@ -100,7 +99,6 @@ class MongoClient:
                 uuid=document["uuid"],
                 name=document["name"],
                 discipline=document["discipline"],
-                category=document["category"],
                 videos=document["videos"]
             ))
 
@@ -120,7 +118,6 @@ class MongoClient:
                 uuid=document["uuid"],
                 name=document["name"],
                 discipline=document["discipline"],
-                category=document["category"],
                 videos=document["videos"]
             ))
 
