@@ -3,7 +3,7 @@
 <!-- ABOUT THE PROJECT -->
 ### About The Project
 
-The Trick Base is a simple web app providing access to the database with various sports discipline's tricks and tutorials to them.  
+The Trick Base is a simple full-stack web app providing access to the database with various sports discipline's tricks and tutorials to them.  
 
 ### App endpoints
 * Get all disciplines
