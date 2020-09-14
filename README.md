@@ -5,7 +5,7 @@
 
 The Trick Base is a simple full-stack web app providing access to the database with various sports discipline's tricks and tutorials to them.  
 
-### App endpoints
+### API endpoints
 * Get all disciplines
 ```sh
 GET: https://trickbase.herokuapp.com/api/disciplines
